@@ -1,0 +1,47 @@
+version: '3'
+
+services:
+
+  nginx:
+    build:
+      context: ./docker/nginx
+    ports:
+      - '${HOST_PORT}:80'
+    volumes:
+      - ~/wordpress/${APP_NAME}:/var/www/html
+      - ./public:/var/www/html/wp-content/themes/${APP_NAME}/public
+    depends_on:
+      - php-fpm
+    networks:
+      - backend
+
+  php-fpm:
+    build:
+      context: ./docker/php
+    volumes:
+      - ~/wordpress/${APP_NAME}:/var/www/html
+      - ./:/var/www/html/wp-content/themes/${APP_NAME}
+    depends_on:
+      - mariadb
+    networks:
+      - backend
+
+  mariadb:
+    image: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+    volumes:
+      - ./docker/mysql/lib/mariadb:/var/lib/mysql
+    networks:
+      - backend
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - ${HOST_PORT}8:8080
+    networks:
+      - backend
+networks:
+  backend:
+    driver: bridge

@@ -1,0 +1,53 @@
+{
+    "name": "laravel/lumen",
+    "description": "The Laravel Lumen Framework.",
+    "keywords": [
+        "framework",
+        "laravel",
+        "lumen"
+    ],
+    "license": "MIT",
+    "type": "project",
+    "require": {
+        "php": ">=5.6.4",
+        "laravel/lumen-framework": "5.4.*",
+        "vlucas/phpdotenv": "~2.2",
+        "lumenpress/framework": "dev-master",
+        "lumenpress/acf": "^0.2.0",
+        "rcrowe/twigbridge": "^0.9.5",
+        "lumenpress/testing": "^0.2.1"
+    },
+    "require-dev": {
+        "fzaninotto/faker": "~1.4",
+        "phpunit/phpunit": "~5.0",
+        "mockery/mockery": "~0.9",
+        "kint-php/kint": "^2.2",
+        "lumenpress/yaml-markdown-parser": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    },
+    "autoload-dev": {
+        "classmap": [
+            "database/"
+        ],
+        "psr-4": {
+            "App\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "post-root-package-install": [
+            "php -r \"copy('.env.example', '.env');\""
+        ]
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url":  "https://github.com/lumenpress/yaml-markdown-parser.git"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
